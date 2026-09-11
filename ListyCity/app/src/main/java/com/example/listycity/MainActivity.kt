@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     CityListScreen(
                         cities = cityRepository.cities,
-                        onAddCity = { cityRepository.addCity(it) }
+                        onAddCity = { cityRepository.addCity(it) },
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -38,7 +38,7 @@ class CityRepository {
         "Edmonton", "Calgary", "Nairobi", "Mombasa",
         "Mogadishu", "Toronto", "Chicago"
     )
-    val _cities: List<String>
+    val cities: List<String>
         get() = _cities
 
     fun addCity(city: String) {
@@ -50,7 +50,7 @@ class CityRepository {
 fun CityListScreen(cities: List<String>, onAddCity: (String) -> Unit, modifier: Modifier = Modifier) {
     var newCityName by remember {mutableStateOf( value = "")}
     Column(modifier = modifier.fillMaxSize()) {
-        Row(modifier = modifier.padding( all= 16.dp)) {
+        Row(modifier = Modifier.padding( all= 16.dp)) {
             OutlinedTextField(
                 value = newCityName,
                 onValueChange = { newCityName = it }
@@ -83,18 +83,10 @@ fun CityListScreen(cities: List<String>, onAddCity: (String) -> Unit, modifier: 
 
 fun CityRow(city: String) {
     Text(
-        text = city
+        text = city,
         fontSize = 28.sp,
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 18.dp, vertical = 14.dp)
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ListyCityTheme {
-        Greeting("Android")
-    }
 }
